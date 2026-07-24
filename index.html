@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Cute Website 💙✨</title>
+    <title>Surprice 💙✨</title>
     <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
@@ -285,9 +285,8 @@
         <!-- STEP 0: Login -->
         <div id="step-0" class="step active">
             <h2>🔒 Cute Login 🌸</h2>
-            <p style="color: rgba(255,255,255,0.8);">Enter secret ID and Password (143) to unlock! 🗝️</p>
-            <input type="text" id="username" placeholder="Enter ID (143) 🧸">
-            <input type="password" id="password" placeholder="Enter Password (143) 🤫">
+            <input type="text" id="username" placeholder="Enter ID">
+            <input type="password" id="password" placeholder="Enter Password">
             <div id="login-error" class="error">Oops! Incorrect ID or Password 🥺</div>
             <button onclick="checkLogin()">Login 🔓✨</button>
         </div>
@@ -353,7 +352,7 @@
             <button class="option-btn" onclick="selectReward(3)">🍦 Ice cream party!</button>
         </div>
 
-        <!-- STEP 9: Final Surprise & Review Box Page -->
+        <!-- STEP 9: Final Surprise & Review Form Page -->
         <div id="step-9" class="step">
             <h2>🌐 Here is your Surprise! 🎉</h2>
             <div id="reward-message" class="link-box">
@@ -362,15 +361,23 @@
 
             <h3 style="color: var(--accent-color); margin-top: 25px; margin-bottom: 10px;">📝 Review & Suggestion Box</h3>
             <p style="font-size: 13px; margin-top: 0; color: rgba(255,255,255,0.7);">Apna honest review ya naya idea yahan type karo! 👇</p>
-            <textarea id="user-review" placeholder="Apna feedback yahan likhein... 💬"></textarea>
-            <button onclick="submitReview()">Send Feedback 🚀💙</button>
+            
+            <!-- Web3Forms Connected Form -->
+            <form id="review-form">
+                <textarea id="user-review" name="feedback" placeholder="Apna feedback yahan likhein... 💬" required></textarea>
+                <button type="submit" id="submit-btn">Send Feedback 🚀💙</button>
+            </form>
         </div>
     </div>
 
     <script>
-        const correctID = "143";
-        const correctPass = "143";
-        const ownerWhatsApp = "918750835823"; // WhatsApp Number
+        // Multiple IDs and Passwords List
+        const validUsers = [
+           { id: "Anshul", pass: "08/03/2010" },
+            { id: "Gyanika", pass: "23/02/2011" },
+            { id: "Reshma", pass: "08/06/2009" }
+        ];
+
         let userData = {
             mood: "",
             activity: "",
@@ -382,7 +389,9 @@
             const pass = document.getElementById("password").value.trim();
             const errorBox = document.getElementById("login-error");
 
-            if (user === correctID && pass === correctPass) {
+            const isValid = validUsers.some(account => account.id === user && account.pass === pass);
+
+            if (isValid) {
                 errorBox.style.display = "none";
                 document.getElementById("step-0").classList.remove("active");
                 document.getElementById("step-1").classList.add("active");
@@ -424,30 +433,61 @@
             const msgBox = document.getElementById("reward-message");
 
             if (optionNum === 1) {
-                msgBox.innerHTML = `<strong>Yay! Direct Surprise! 🎁✨</strong><br>Aapka surprise link niche diya hai, jaldi se click karo:<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+                msgBox.innerHTML = `<strong>Yay! Direct Surprise! 🎁✨</strong><br>Aapka surprise link niche diya hai, jaldi se click karo:<br><a href="https://studypanda.site/" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
             } else if (optionNum === 2) {
-                msgBox.innerHTML = `<strong>Oho, Chocolate aur Kurkura chahiye?! 😏🍫</strong><br>Arey ruko-ruko! Pehle itni mehnat se banaya hua surprise toh dekh lo, phir yeh dono cheezein pakki!<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+                msgBox.innerHTML = `<strong>Oho, Chocolate aur Kurkura chahiye?! 😏🍫</strong><br>Arey ruko-ruko! Pehle itni mehnat se banaya hua surprise toh dekh lo, phir yeh dono cheezein pakki!<br><a href="https://studypanda.site/" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
             } else if (optionNum === 3) {
-                msgBox.innerHTML = `<strong>Ice cream party?! Itni jaldi?! 🤭🍦</strong><br>Itni bhi kya jaldi hai, pehle itne hardwork se banayi hui website ka maza toh lo! Ice cream treat pakki hai:<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+                msgBox.innerHTML = `<strong>Ice cream party?! Itni jaldi?! 🤭🍦</strong><br>Itni bhi kya jaldi hai, pehle itne hardwork se banayi hui website ka maza toh lo! Ice cream treat pakki hai:<br><a href="https://studypanda.site/" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
             }
             triggerConfetti();
         }
 
-        function submitReview() {
+        // Web3Forms Submit Integration
+        const form = document.getElementById('review-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
             const reviewText = document.getElementById("user-review").value.trim();
             if(reviewText === "") {
                 alert("Pehle kuch likh toh do feedback mein! 🙈");
-            } else {
-                const message = `✨ *New Website Response!* ✨%0A%0A💖 *Mood:* ${encodeURIComponent(userData.mood)}%0A🎨 *Activity:* ${encodeURIComponent(userData.activity)}%0A🎁 *Chosen Reward:* ${encodeURIComponent(userData.reward)}%0A📝 *Review/Feedback:* ${encodeURIComponent(reviewText)}`;
-                
-                const whatsappURL = `https://api.whatsapp.com/send?phone=${ownerWhatsApp}&text=${message}`;
-                
-                window.open(whatsappURL, '_blank');
-                
-                alert("Thank you! Aapka review successfully WhatsApp par bhej diya gaya hai! 💙✨");
-                document.getElementById("user-review").value = "";
+                return;
             }
-        }
+
+            const formData = new FormData(form);
+            formData.append("access_key", "a1e0d0de-bb38-4013-bfeb-df788d8afcca");
+            formData.append("subject", "New Response from Cute Prank Website! 💙");
+            formData.append("Mood", userData.mood);
+            formData.append("Activity", userData.activity);
+            formData.append("Chosen Reward", userData.reward);
+
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Sending...";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Success! Aapka review successfully email par bhej diya gaya hai! 💙✨");
+                    form.reset();
+                } else {
+                    alert("Error: " + data.message);
+                }
+
+            } catch (error) {
+                alert("Something went wrong. Please try again.");
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
 
         function triggerConfetti() {
             confetti({
