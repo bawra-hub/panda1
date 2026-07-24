@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Cute Website 💙✨</title>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff477e;
+            --secondary-color: #ff70a6;
+            --accent-color: #70d6ff;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --text-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Background Orbs / Balloons Effect */
+        .bg-bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-bubbles li {
+            position: absolute;
+            list-style: none;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            animation: animateBubble 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+        .bg-bubbles li:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-duration: 18s; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 20px; height: 20px; animation-duration: 7s; animation-delay: 2s; }
+        .bg-bubbles li:nth-child(3) { left: 25%; width: 50px; height: 50px; animation-duration: 12s; animation-delay: 4s; }
+        .bg-bubbles li:nth-child(4) { left: 40%; width: 30px; height: 30px; animation-duration: 15s; animation-delay: 0s; }
+        .bg-bubbles li:nth-child(5) { left: 70%; width: 25px; height: 25px; animation-duration: 11s; animation-delay: 3s; }
+        .bg-bubbles li:nth-child(6) { left: 80%; width: 60px; height: 60px; animation-duration: 20s; animation-delay: 2s; }
+        .bg-bubbles li:nth-child(7) { left: 85%; width: 15px; height: 15px; animation-duration: 8s; animation-delay: 5s; }
+
+        @keyframes animateBubble {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 50%; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; background: rgba(255, 112, 166, 0.4); }
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-sizing: border-box;
+            z-index: 10;
+            position: relative;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(112, 214, 255, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0 20px 0;
+            background: rgba(255, 255, 255, 0.07);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 14px;
+            box-sizing: border-box;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(112, 214, 255, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            height: 90px;
+        }
+
+        /* Styled Main Buttons */
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 5px;
+            box-shadow: 0 6px 20px rgba(255, 71, 126, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            filter: brightness(1.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 71, 126, 0.6);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        /* Decorated Option Buttons */
+        .option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            padding: 14px;
+            margin: 10px 0;
+            font-size: 15px;
+            border-radius: 14px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(112, 214, 255, 0.25);
+        }
+
+        .error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .question-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+            color: #f8f9fa;
+            line-height: 1.4;
+        }
+
+        /* Highly Decorated Main Website Link Box Button */
+        .link-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 18px;
+            border-radius: 16px;
+            margin: 15px 0;
+            word-break: break-all;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .fancy-website-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: #ffffff !important;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none !important;
+            box-shadow: 0 5px 20px rgba(0, 180, 216, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulseGlow 2s infinite;
+        }
+
+        .fancy-website-btn:hover {
+            background: linear-gradient(135deg, #0077b6, #03045e);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.8);
+            border-color: #90e0ef;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(0, 180, 216, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0); }
+        }
+
+        /* Evading No Button Style */
+        #evade-btn {
+            background: linear-gradient(135deg, #d90429, #ef233c);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4);
+        }
+
+        /* Emoji Rain Animation */
+        .falling-emoji {
+            position: absolute;
+            top: -20px;
+            font-size: 24px;
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body onclick="createEmojiRain(event)">
+
+    <!-- Floating Background Orbs -->
+    <ul class="bg-bubbles">
+        <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    </ul>
+
+    <div class="container">
+        <!-- STEP 0: Login -->
+        <div id="step-0" class="step active">
+            <h2>🔒 Cute Login 🌸</h2>
+            <p style="color: rgba(255,255,255,0.8);">Enter secret ID and Password (143) to unlock! 🗝️</p>
+            <input type="text" id="username" placeholder="Enter ID (143) 🧸">
+            <input type="password" id="password" placeholder="Enter Password (143) 🤫">
+            <div id="login-error" class="error">Oops! Incorrect ID or Password 🥺</div>
+            <button onclick="checkLogin()">Login 🔓✨</button>
+        </div>
+
+        <!-- STEP 1: Mood -->
+        <div id="step-1" class="step">
+            <label class="question-label">1. How are you feeling today? ☀️💖</label>
+            <input type="text" id="ans-1" placeholder="Tell me everything... 😊">
+            <button onclick="nextStep(1)">Next 💙</button>
+        </div>
+
+        <!-- STEP 2: Current Activity -->
+        <div id="step-2" class="step">
+            <label class="question-label">2. What are you doing right now? 👀🎨</label>
+            <input type="text" id="ans-2" placeholder="Busy or chilling? 🛋️">
+            <button onclick="nextStep(2)">Next 💙</button>
+        </div>
+
+        <!-- STEP 3: Suspense Prank (Evading No Button) -->
+        <div id="step-3" class="step">
+            <h2>🤔 Zara sochiye...</h2>
+            <label class="question-label">Sach mein dekhna hai ya bas aise hi timepass kar rahi ho? 😏</label>
+            <div class="btn-group">
+                <button onclick="nextStep(3)">Haan bilkul, dikhao! 🚀</button>
+                <button id="evade-btn" onmouseover="moveButton()" onclick="alert('Yeh option allowed nahi hai! 😜 Haan dabao!')">Nahi dekhna! 😤</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: Prank Loop 1 -->
+        <div id="step-4" class="step">
+            <h2>🤨 Wait a minute...</h2>
+            <label class="question-label">Sach mein dekhna hai ya bas maze le rahi ho? 🤭</label>
+            <button onclick="nextStep(4)">Arey aage badho ji! 😂</button>
+        </div>
+
+        <!-- STEP 5: Prank Loop 2 -->
+        <div id="step-5" class="step">
+            <h2>😂 Pakad liye na!</h2>
+            <label class="question-label">Sach mein, isme tum aur steps... bas yehi check karne ke liye repeat kiya hai! 🔄</label>
+            <button onclick="nextStep(5)">Chalo ab next karo! 🏃‍♀️</button>
+        </div>
+
+        <!-- STEP 6: Prank Loop 3 -->
+        <div id="step-6" class="step">
+            <h2>😎 Bas thoda sa aur...</h2>
+            <label class="question-label">Kya sach mein itni curiosity hai is website ko lekar? 🧐✨</label>
+            <button onclick="nextStep(6)">Haan bhai haan, ab link do! 🎯</button>
+        </div>
+
+        <!-- STEP 7: Final Promise -->
+        <div id="step-7" class="step">
+            <h2>🎉 Lo ji!</h2>
+            <label class="question-label">1-2 yeh final hai aur pakka final hai! 🤞✨</label>
+            <button onclick="nextStep(7)">Let's Go! 🚀💙</button>
+        </div>
+
+        <!-- STEP 8: Reward Selection -->
+        <div id="step-8" class="step">
+            <h2>🎁 Choose Your Reward! ✨</h2>
+            <label class="question-label">Pehle yeh batao, kya chahte ho? 🤭</label>
+            <button class="option-btn" onclick="selectReward(1)">🎁 Mujhe toh bas surprise chahiye!</button>
+            <button class="option-btn" onclick="selectReward(2)">🍫 Chocolate aur Kurkura dono chahiye!</button>
+            <button class="option-btn" onclick="selectReward(3)">🍦 Ice cream party!</button>
+        </div>
+
+        <!-- STEP 9: Final Surprise & Review Box Page -->
+        <div id="step-9" class="step">
+            <h2>🌐 Here is your Surprise! 🎉</h2>
+            <div id="reward-message" class="link-box">
+                <!-- Dynamic text and decorated button will appear here -->
+            </div>
+
+            <h3 style="color: var(--accent-color); margin-top: 25px; margin-bottom: 10px;">📝 Review & Suggestion Box</h3>
+            <p style="font-size: 13px; margin-top: 0; color: rgba(255,255,255,0.7);">Apna honest review ya naya idea yahan type karo! 👇</p>
+            <textarea id="user-review" placeholder="Apna feedback yahan likhein... 💬"></textarea>
+            <button onclick="submitReview()">Send Feedback 🚀💙</button>
+        </div>
+    </div>
+
+    <script>
+        const correctID = "143";
+        const correctPass = "143";
+        const ownerWhatsApp = "918750835823"; // WhatsApp Number
+        let userData = {
+            mood: "",
+            activity: "",
+            reward: ""
+        };
+
+        function checkLogin() {
+            const user = document.getElementById("username").value.trim();
+            const pass = document.getElementById("password").value.trim();
+            const errorBox = document.getElementById("login-error");
+
+            if (user === correctID && pass === correctPass) {
+                errorBox.style.display = "none";
+                document.getElementById("step-0").classList.remove("active");
+                document.getElementById("step-1").classList.add("active");
+            } else {
+                errorBox.style.display = "block";
+            }
+        }
+
+        function nextStep(current) {
+            if (current === 1) {
+                userData.mood = document.getElementById("ans-1").value.trim() || "Not specified";
+            } else if (current === 2) {
+                userData.activity = document.getElementById("ans-2").value.trim() || "Not specified";
+            }
+
+            document.getElementById(`step-${current}`).classList.remove("active");
+            const nextElem = document.getElementById(`step-${current + 1}`);
+            nextElem.classList.add("active");
+
+            if (current + 1 === 8) {
+                triggerConfetti();
+            }
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('evade-btn');
+            const x = (Math.random() - 0.5) * 200;
+            const y = (Math.random() - 0.5) * 100;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function selectReward(optionNum) {
+            if (optionNum === 1) userData.reward = "Direct Surprise 🎁";
+            else if (optionNum === 2) userData.reward = "Chocolate & Kurkura 🍫";
+            else if (optionNum === 3) userData.reward = "Ice Cream Party 🍦";
+
+            document.getElementById("step-8").classList.remove("active");
+            document.getElementById("step-9").classList.add("active");
+            const msgBox = document.getElementById("reward-message");
+
+            if (optionNum === 1) {
+                msgBox.innerHTML = `<strong>Yay! Direct Surprise! 🎁✨</strong><br>Aapka surprise link niche diya hai, jaldi se click karo:<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+            } else if (optionNum === 2) {
+                msgBox.innerHTML = `<strong>Oho, Chocolate aur Kurkura chahiye?! 😏🍫</strong><br>Arey ruko-ruko! Pehle itni mehnat se banaya hua surprise toh dekh lo, phir yeh dono cheezein pakki!<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+            } else if (optionNum === 3) {
+                msgBox.innerHTML = `<strong>Ice cream party?! Itni jaldi?! 🤭🍦</strong><br>Itni bhi kya jaldi hai, pehle itne hardwork se banayi hui website ka maza toh lo! Ice cream treat pakki hai:<br><a href="https://www.example.com" target="_blank" class="fancy-website-btn">✨ Open Website 🚀💙 ✨</a>`;
+            }
+            triggerConfetti();
+        }
+
+        function submitReview() {
+            const reviewText = document.getElementById("user-review").value.trim();
+            if(reviewText === "") {
+                alert("Pehle kuch likh toh do feedback mein! 🙈");
+            } else {
+                const message = `✨ *New Website Response!* ✨%0A%0A💖 *Mood:* ${encodeURIComponent(userData.mood)}%0A🎨 *Activity:* ${encodeURIComponent(userData.activity)}%0A🎁 *Chosen Reward:* ${encodeURIComponent(userData.reward)}%0A📝 *Review/Feedback:* ${encodeURIComponent(reviewText)}`;
+                
+                const whatsappURL = `https://api.whatsapp.com/send?phone=${ownerWhatsApp}&text=${message}`;
+                
+                window.open(whatsappURL, '_blank');
+                
+                alert("Thank you! Aapka review successfully WhatsApp par bhej diya gaya hai! 💙✨");
+                document.getElementById("user-review").value = "";
+            }
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff477e', '#ff70a6', '#70d6ff', '#ffffff', '#ffd166']
+            });
+        }
+
+        function createEmojiRain(event) {
+            const emojis = ['💙', '✨', '🌸', '🧸', '💖', '⭐', '🎈'];
+            const emoji = document.createElement('div');
+            emoji.classList.add('falling-emoji');
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            emoji.style.left = event.clientX + 'px';
+            emoji.style.top = event.clientY + 'px';
+            
+            const randomX = (Math.random() - 0.5) * 150;
+            emoji.style.setProperty('--random-x', randomX + 'px');
+            emoji.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
